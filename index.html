@@ -1,21 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>Countdown Timer</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    h1 { font-size: 3rem; margin-bottom: 20px; }
+    #timer {
+      font-size: 2.5rem;
+      background-color: #222;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #00ffcc;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Countdown to New Year 2026</h1>
-    <div class="countdown">
-      <div><span id="days">0</span><span>Days</span></div>
-      <div><span id="hours">0</span><span>Hours</span></div>
-      <div><span id="minutes">0</span><span>Minutes</span></div>
-      <div><span id="seconds">0</span><span>Seconds</span></div>
-    </div>
-  </div>
-  <script src="script.js"></script>
+  <h1>⏳ Countdown to Event</h1>
+  <div id="timer">Loading...</div>
+  <script>
+    const targetDate = new Date("2025-07-01T17:00:00Z");
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+      if (diff <= 0) {
+        document.getElementById("timer").innerHTML = "🎉 Time's up!";
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      document.getElementById("timer").innerHTML =
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
 </body>
 </html>
